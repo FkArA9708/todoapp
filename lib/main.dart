@@ -49,6 +49,8 @@ class _TodoScreenState extends State<TodoScreen> {
   //List<String> tempArray = [];
 
   Future<void> _displayTextInputDialog(BuildContext context) async {
+     const snackBar = SnackBar(content: Text('Text field cannot be empty.'));
+
     return showDialog(
       context: context,
       builder: (context) {
@@ -80,9 +82,13 @@ class _TodoScreenState extends State<TodoScreen> {
               child: const Text('OK'),
               onPressed: () {
                 setState(() {
-                  todoList.add(_textFieldController.text);
-                  setState(() {});
-                  Navigator.of(context).pop();
+                  if (_textFieldController.text.isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  } else {
+                    todoList.add(_textFieldController.text);
+                    setState(() {});
+                    Navigator.of(context).pop();
+                  }
                 });
               },
             ),
