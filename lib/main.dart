@@ -42,16 +42,11 @@ class _TodoScreenState extends State<TodoScreen> {
     super.dispose();
   }
 
-  final List<String> todoList = [
-    "Wash Dishes",
-    "Clean up your room",
-    "Make food",
-    "Finish homework",
-  ];
+  final List<String> todoList = [];
 
-  List<bool> _selected = [false, false, false, false];
+  //List<bool> _selected = [];
 
-  List<String> tempArray = [];
+  //List<String> tempArray = [];
 
   Future<void> _displayTextInputDialog(BuildContext context) async {
     return showDialog(
@@ -97,110 +92,74 @@ class _TodoScreenState extends State<TodoScreen> {
     );
   }
 
-  /*Future _getRemoveButtons(BuildContext context) async {
-    return Expanded(
-      //context: context,
-      itemCount: todoList.length,
-      itemBuilder: (context, index) {
-                        child: ListView.builder(
-                        child: Card(
-                         child: ListTile(
-                           title: Text(todoList[index].toString(), style: TextStyle(fontStyle: FontStyle.italic,
-                               fontSize: 20)),
-                           trailing: Container(
-                             height: 50,
-                             width: 100,
-                             decoration: BoxDecoration(
-                               color: tempArray.contains(name[index].toString()) ? Colors.red : Colors.green
-                             ),
-                             child: Center(
-                               child: Text(tempArray.contains(name[index].toString()) ? 'REMOVE' : 'ADD',
-                                   style: TextStyle(fontStyle: FontStyle.italic,
-                                   fontSize: 20)),
-                             ),
-                           ),
-                         ),
-                       ),
-                       onTap: () {
-                        setState(() {
-                          if(tempArray.contains(name[index].toString())) {
-                            tempArray.remove(name[index].toString());
-                          } else {
-                            tempArray.add(name[index].toString());
-                          }
-                        });
-                       },
-                     );
-                   }
+  void deleteItem(int index) {
+    setState(() {
+      //final removedItem = todoList[index];
+      todoList.removeAt(index);
+      //_selected.removeAt(index);
+    });
   }
-*/
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("ListView With Select" , style: TextStyle(fontStyle: FontStyle.italic,
-            fontSize: 30),),
+        title: const Text(
+          "ListView With Select",
+          style: TextStyle(fontStyle: FontStyle.italic, fontSize: 30),
+        ),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-             Expanded(
-               child: ListView.builder(
-                   itemCount: todoList.length,
-                   itemBuilder: (context, index) {
-                     return InkWell(
-                       child: Card(
-                         child: ListTile(
-                           title: Text(todoList[index].toString(), style: TextStyle(fontStyle: FontStyle.italic,
-                               fontSize: 20)),
-                           trailing: Container(
-                             height: 50,
-                             width: 100,
-                             decoration: BoxDecoration(
-                               color: tempArray.contains(todoList[index].toString()) ? Colors.red : Colors.red
-                             ),
-                             child: Center(
-                               child: Text(tempArray.contains(todoList[index].toString()) ? 'REMOVE' : 'REMOVE',
-                                   style: TextStyle(fontStyle: FontStyle.italic,
-                                   fontSize: 20)),
-                             ),
-                           ),
-                         ),
-                       ),
-                       onTap: () {
-                        setState(() {
-                          if(tempArray.contains(todoList[index].toString())) {
-                            tempArray.remove(todoList[index].toString());
-                          } else {
-                            tempArray.add(todoList[index].toString());
-                          }
-                        });
-                       },
-                     );
-                   }),
-             ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: todoList.length,
+                itemBuilder: (context, index) {
+                  return InkWell(
+                    child: Card(
+                      child: ListTile(
+                        title: Text(
+                          todoList[index].toString(),
+                          style: TextStyle(
+                            fontStyle: FontStyle.italic,
+                            fontSize: 20,
+                          ),
+                        ),
+                        trailing: IconButton(
+                          icon: const Icon(Icons.delete, color: Colors.red),
+                          onPressed: () {
+                            deleteItem(index);
+                          },
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
             Flexible(
-             flex: 1,
-             child: Row(
-               children: [
-                 ElevatedButton(
-                   child: const Text('Add'),
-                   onPressed: () {
-                     _displayTextInputDialog(context);
-                   },  
-                   ),
-                 ]),
-          )],
+              flex: 1,
+              child: Row(
+                children: [
+                  ElevatedButton(
+                    child: const Text('Add'),
+                    onPressed: () {
+                      _displayTextInputDialog(context);
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );
   }
 }
 
-  /*
+/*
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -272,7 +231,6 @@ class _HomePageState extends State<HomePage> {
 }
 */
 
-
 //  String? valueText;
 //   @override
 //   Widget build(BuildContext context) {
@@ -324,9 +282,7 @@ class _HomePageState extends State<HomePage> {
 //               });
 //             },
 //           ),
-//         ], 
-//       ), 
-//     ); 
-//   } 
-
-
+//         ],
+//       ),
+//     );
+//   }
