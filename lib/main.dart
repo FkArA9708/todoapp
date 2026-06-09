@@ -49,7 +49,7 @@ class _TodoScreenState extends State<TodoScreen> {
   //List<String> tempArray = [];
 
   Future<void> _displayTextInputDialog(BuildContext context) async {
-     const snackBar = SnackBar(content: Text('Text field cannot be empty.'));
+    const snackBar = SnackBar(content: Text('Text field cannot be empty.'));
 
     return showDialog(
       context: context,
@@ -98,10 +98,69 @@ class _TodoScreenState extends State<TodoScreen> {
     );
   }
 
+  Future<void> _displayEditTextInputDialog(
+    BuildContext context,
+    int index,
+  ) async {
+    //const snackBar = SnackBar(content: Text('Text field cannot be empty.'));
+
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('EditTextField in Dialog'),
+          content: TextField(
+            controller: _textFieldController,
+            // onChanged: (value) {
+            //   // setState(() {
+            //   //   //valueText = value;
+            //   // });
+            // },
+            decoration: const InputDecoration(
+              hintText: "Edit Text Field in Dialog",
+            ),
+          ),
+          actions: <Widget>[
+            MaterialButton(
+              color: Colors.red,
+              textColor: Colors.white,
+              child: const Text('CANCEL'),
+              onPressed: () {
+                //setState(() {
+                Navigator.pop(context);
+                //});
+              },
+            ),
+            MaterialButton(
+              color: Colors.green,
+              textColor: Colors.white,
+              child: const Text('OK'),
+              onPressed: () {
+                setState(() {
+                  _editItem(_textFieldController.text, index);
+                  _textFieldController.clear();
+                });
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   void deleteItem(int index) {
     setState(() {
       //final removedItem = todoList[index];
       todoList.removeAt(index);
+      //_selected.removeAt(index);
+    });
+  }
+
+  void _editItem(String newText, int index) {
+    setState(() {
+      //final removedItem = todoList[index];
+      todoList[index] = newText;
       //_selected.removeAt(index);
     });
   }
@@ -132,6 +191,12 @@ class _TodoScreenState extends State<TodoScreen> {
                             fontStyle: FontStyle.italic,
                             fontSize: 20,
                           ),
+                        ),
+                        leading: IconButton(
+                          icon: const Icon(Icons.edit, color: Colors.blue),
+                          onPressed: () {
+                            _displayEditTextInputDialog(context, index);
+                          },
                         ),
                         trailing: IconButton(
                           icon: const Icon(Icons.delete, color: Colors.red),
