@@ -72,6 +72,7 @@ class _TodoScreenState extends State<TodoScreen> {
               child: const Text('CANCEL'),
               onPressed: () {
                 setState(() {
+                  _textFieldController.clear();
                   Navigator.pop(context);
                 });
               },
@@ -86,6 +87,7 @@ class _TodoScreenState extends State<TodoScreen> {
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   } else {
                     todoList.add(_textFieldController.text);
+                    _textFieldController.clear();
                     setState(() {});
                     Navigator.of(context).pop();
                   }
@@ -103,6 +105,7 @@ class _TodoScreenState extends State<TodoScreen> {
     int index,
   ) async {
     //const snackBar = SnackBar(content: Text('Text field cannot be empty.'));
+    _textFieldController.text = todoList[index];
 
     return showDialog(
       context: context,
@@ -112,9 +115,9 @@ class _TodoScreenState extends State<TodoScreen> {
           content: TextField(
             controller: _textFieldController,
             // onChanged: (value) {
-            //   // setState(() {
-            //   //   //valueText = value;
-            //   // });
+            //   setState(() {
+            //     valueText = value;
+            //   });
             // },
             decoration: const InputDecoration(
               hintText: "Edit Text Field in Dialog",
@@ -127,6 +130,7 @@ class _TodoScreenState extends State<TodoScreen> {
               child: const Text('CANCEL'),
               onPressed: () {
                 //setState(() {
+                _textFieldController.clear();
                 Navigator.pop(context);
                 //});
               },
