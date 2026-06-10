@@ -196,22 +196,27 @@ class _TodoScreenState extends State<TodoScreen> {
                             fontSize: 20,
                           ),
                         ),
-                        leading: IconButton(
-                          icon: const Icon(Icons.edit, color: Colors.blue),
-                          onPressed: () {
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                              onPressed: () {
                             _displayEditTextInputDialog(context, index);
-                          },
+                              },
+                          icon: const Icon(Icons.edit, color: Colors.blue),
                         ),
-                        trailing: IconButton(
-                          icon: const Icon(Icons.delete, color: Colors.red),
+                        IconButton(
                           onPressed: () {
                             deleteItem(index);
                           },
+                          icon: const Icon(Icons.delete, color: Colors.red),
                         ),
+                          ],
+                    ),
                       ),
                     ),
-                  );
-                },
+              );
+  },
               ),
             ),
             Flexible(
