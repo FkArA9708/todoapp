@@ -169,6 +169,36 @@ class _TodoScreenState extends State<TodoScreen> {
     });
   }
 
+  void deletedItemSnackBar(
+    BuildContext context,
+    int index,
+    dynamic deleteItem,
+  ) {
+    //SnackBarAction isUndoPressed;
+    //bool isDeleting = false;
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        behavior: SnackBarBehavior.floating,
+        duration: Duration(seconds: 3),
+        content: Text(
+          "${['Item']} has been deleted",
+          style: TextStyle(color: Colors.white),
+        ),
+        action: SnackBarAction(
+          label: "UNDO",
+          textColor: Colors.blue,
+          onPressed: () {
+            //isUndoPressed = true;
+            setState(() {
+              todoList.insert(index, deleteItem);
+            });
+          },
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -200,23 +230,28 @@ class _TodoScreenState extends State<TodoScreen> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             IconButton(
+                              onPressed: () =>
+                                  _displayEditTextInputDialog(context, index),
+                              icon: const Icon(Icons.edit, color: Colors.blue),
+                            ),
+                            IconButton(
                               onPressed: () {
-                            _displayEditTextInputDialog(context, index);
+                                final removedItem = todoList[index];
+                                deleteItem(index);
+                                deletedItemSnackBar(
+                                  context,
+                                  index,
+                                  removedItem,
+                                );
                               },
-                          icon: const Icon(Icons.edit, color: Colors.blue),
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            deleteItem(index);
-                          },
-                          icon: const Icon(Icons.delete, color: Colors.red),
-                        ),
+                              icon: const Icon(Icons.delete, color: Colors.red),
+                            ),
                           ],
-                    ),
+                        ),
                       ),
                     ),
-              );
-  },
+                  );
+                },
               ),
             ),
             Flexible(
