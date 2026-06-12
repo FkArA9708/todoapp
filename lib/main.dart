@@ -111,6 +111,12 @@ class _TodoScreenState extends State<TodoScreen> {
     //const snackBar = SnackBar(content: Text('Text field cannot be empty.'));
     _textFieldController.text = todoList[index];
 
+    const editSnackBar = SnackBar(content: Text('Edit field cannot be empty.'));
+
+    bool isWhiteSpace(String? text) {
+      return text == null || text.trim().isEmpty;
+    }
+
     return showDialog(
       context: context,
       builder: (context) {
@@ -145,8 +151,12 @@ class _TodoScreenState extends State<TodoScreen> {
               child: const Text('OK'),
               onPressed: () {
                 setState(() {
-                  _editItem(_textFieldController.text, index);
-                  _textFieldController.clear();
+                  if (isWhiteSpace(_textFieldController.text)) {
+                    ScaffoldMessenger.of(context).showSnackBar(editSnackBar);
+                  } else {
+                    _editItem(_textFieldController.text, index);
+                    _textFieldController.clear();
+                  }
                 });
                 Navigator.pop(context);
               },
