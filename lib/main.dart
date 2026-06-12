@@ -51,6 +51,10 @@ class _TodoScreenState extends State<TodoScreen> {
   Future<void> _displayTextInputDialog(BuildContext context) async {
     const snackBar = SnackBar(content: Text('Text field cannot be empty.'));
 
+    bool isWhiteSpace(String? text) {
+      return text == null || text.trim().isEmpty;
+    }
+
     return showDialog(
       context: context,
       builder: (context) {
@@ -83,7 +87,7 @@ class _TodoScreenState extends State<TodoScreen> {
               child: const Text('OK'),
               onPressed: () {
                 setState(() {
-                  if (_textFieldController.text.isEmpty) {
+                  if (isWhiteSpace(_textFieldController.text)) {
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   } else {
                     todoList.add(_textFieldController.text);
@@ -273,4 +277,3 @@ class _TodoScreenState extends State<TodoScreen> {
     );
   }
 }
-
