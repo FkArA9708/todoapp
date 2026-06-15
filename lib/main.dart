@@ -52,7 +52,7 @@ class _TodoScreenState extends State<TodoScreen> {
     const snackBar = SnackBar(content: Text('Text field cannot be empty.'));
 
     bool isWhiteSpace(String? text) {
-      return text == null || text.trim().isEmpty;
+      return text == null || text.trim().isEmpty || text != text.trim();
     }
 
     return showDialog(
@@ -114,7 +114,7 @@ class _TodoScreenState extends State<TodoScreen> {
     const editSnackBar = SnackBar(content: Text('Edit field cannot be empty.'));
 
     bool isWhiteSpace(String? text) {
-      return text == null || text.trim().isEmpty;
+      return text == null || text.trim().isEmpty || text != text.trim();
     }
 
     return showDialog(
@@ -186,7 +186,7 @@ class _TodoScreenState extends State<TodoScreen> {
   void deletedItemSnackBar(
     BuildContext context,
     int index,
-    dynamic deleteItem,
+    String deletedItem,
   ) {
     //SnackBarAction isUndoPressed;
     //bool isDeleting = false;
@@ -196,7 +196,7 @@ class _TodoScreenState extends State<TodoScreen> {
         behavior: SnackBarBehavior.floating,
         duration: Duration(seconds: 3),
         content: Text(
-          "${['Item']} has been deleted",
+          '"$deletedItem" has been deleted',
           style: TextStyle(color: Colors.white),
         ),
         action: SnackBarAction(
@@ -205,7 +205,7 @@ class _TodoScreenState extends State<TodoScreen> {
           onPressed: () {
             //isUndoPressed = true;
             setState(() {
-              todoList.insert(index, deleteItem);
+              todoList.insert(index, deletedItem);
             });
           },
         ),
