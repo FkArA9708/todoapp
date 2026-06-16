@@ -20,10 +20,10 @@ Een eenvoudige maar complete todo applicatie gebouwd met **Flutter** en **Dart**
 
 ## Schermafbeeldingen
 
-![Overzicht van de app](../todoapp/Todoapp_foto_1.png)
-![Taak toevoegen](../todoapp/Todoapp_foto_2.png)
-![Taak bewerken](../todoapp/Todoapp_foto_3.png)
-![Taak verwijderen](../todoapp/Todoapp_foto_4.png)
+![Overzicht van de app](Todoapp_foto_1.png)
+![Taak toevoegen](Todoapp_foto_2.png)
+![Taak bewerken](Todoapp_foto_3.png)
+![Taak verwijderen](Todoapp_foto_4.png)
 
 ## Aan de slag
 
