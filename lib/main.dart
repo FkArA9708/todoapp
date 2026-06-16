@@ -59,7 +59,7 @@ class _TodoScreenState extends State<TodoScreen> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('TextField in Dialog'),
+          title: const Text('Add Dialog'),
           content: TextField(
             controller: _textFieldController,
             onChanged: (value) {
@@ -67,7 +67,7 @@ class _TodoScreenState extends State<TodoScreen> {
                 //valueText = value;
               });
             },
-            decoration: const InputDecoration(hintText: "Text Field in Dialog"),
+            decoration: const InputDecoration(hintText: "Type in task"),
           ),
           actions: <Widget>[
             MaterialButton(
@@ -121,7 +121,7 @@ class _TodoScreenState extends State<TodoScreen> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('EditTextField in Dialog'),
+          title: const Text('Edit Dialog'),
           content: TextField(
             controller: _textFieldController,
             // onChanged: (value) {
@@ -130,7 +130,7 @@ class _TodoScreenState extends State<TodoScreen> {
             //   });
             // },
             decoration: const InputDecoration(
-              hintText: "Edit Text Field in Dialog",
+              hintText: "Edit task",
             ),
           ),
           actions: <Widget>[
@@ -218,7 +218,7 @@ class _TodoScreenState extends State<TodoScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "ListView With Select",
+          "To-Do App",
           style: TextStyle(fontStyle: FontStyle.italic, fontSize: 30),
         ),
       ),
